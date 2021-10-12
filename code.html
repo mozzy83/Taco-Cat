@@ -3,7 +3,7 @@
 
 
 <head>
-    <title>App Name: A Coding Project By Matt Osberg</title>
+    <title>Taco Cat: A Coding Project By Matt Osberg</title>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -24,7 +24,7 @@
 
     <nav class="navbar navbar-expand-md navbar-dark fixed-top">
     <div class="container-fluid">
-        <a class="navbar-brand" href="#"><img src="img/favicon.png" class="d-inline-block align-text-top" alt="Matt Osberg Logo" width="30" height="24"> APP NAME</a>
+        <a class="navbar-brand" href="#"><img src="img/favicon.png" class="d-inline-block align-text-top" alt="Matt Osberg Logo" width="30" height="24"> Taco Cat</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
             aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -41,7 +41,7 @@
                     <a class="nav-link active" aria-current="page" href="code.html">The Code</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" target="_blank" href="#">Git Repo</a>
+                    <a class="nav-link" target="_blank" href="https://github.com/mozzy83/Taco-Cat.git">Git Repo</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" target="_blank" href="https://www.linkedin.com/in/matt-osberg">About</a>
@@ -55,22 +55,47 @@
 
         <main class="flex-shrink-0">
             <div class="container py-4 px-5 mt-5">
-                <h2 class="border-1 border-bottom border-dark">The Code for Loopty.</h2>
+                <h2 class="border-1 border-bottom border-dark">The Code for Taco Cat.</h2>
                 <div class="row row-cols-1 row-cols-lg-2">
                     <div class="col col-lg-8">
                         <pre class="line-numbers">
                             <code class="language-javascript">
-//Call Hello World
-function helloWorld() {
-    alert("Wello World");
+//Retrieve value from user
+//Remove special characters and white space
+function getValue() {
+    let inputValue = document.getElementById('userString').value;
+    let parsed = inputValue.normalize('NFC').replace(/[^0-9a-zA-Z]/g, '').toLowerCase();
+    let {palindrome, reversed} = isPalindrome(parsed);
+    displayResults(palindrome, reversed);
+}
+function isPalindrome(parsed) {
+    //build array in reverse and check against forward
+    let reversed = '';
+    let palindrome = false;
+    for (let i = parsed.length - 1; i >= 0; i--) {
+        reversed += parsed[i];
+    }
+    if(reversed == parsed){palindrome = true;}
+    return {palindrome, reversed};
+}
+//Display results to user
+function displayResults(palindrome, reversed) {
+    if(palindrome) {document.getElementById('alertHeading').innerHTML = 'Well done! You entered a palindrome!';}
+    else {document.getElementById('alertHeading').innerHTML = 'Im sorry. Your value is not a palindrome.';}
+    document.getElementById("msg").innerHTML = `Your phrase reversed is: <b>${reversed}</b>`;
+    document.getElementById("alert").classList.remove('invisible');
 }
                             </code>
                         </pre>
                     </div>
                     <div class="col col-lg-4">
-                        <p>The Code is structured in one function.</p>
-                        <h5>Hello World</h5>
-                        <p>Hello World is a function that displays an alert with a message of "Hello World"</p>
+                        <p>Taco Cat is structured in 3 main functions:</p>
+                        <h5>getValue()</h5>
+                        <p>The first function retrieves the value entered by the user and uses a regex to remove any special characters and white space. It then sets all characters to lowercase before sending the value to the second function, isPalindrome...</p>
+                        <h5>isPalindrome()</h5>
+                        <p>The second function declares two variables initially. One for our parsed value once it has been reversed and one that is a boolean that we will use to tell the last function whether we have a palindrome or not. Our function then uses a For Loop to reverse our value and set the reversed value to our variable. Then it sets our boolean variable to the appropriate value based on whether or not we have a palindrome. Finally, it returns both the reversed value and the boolean so they can be used in the final function...</p>
+                        <h5>displayResults()</h5>
+                        <p>Our last function receives the reversed value and the boolean and first sets the HTML of our alertHeading to the appropriate text based on the value of the boolean and then sets the HTML of our msg with the reversed value. Lastly, it makes our alert section visible by removing the invisible class attribute.</p>
                     </div>
                 </div>
             </div>
